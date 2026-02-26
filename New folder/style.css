@@ -1,0 +1,411 @@
+/* Reset */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+
+/* Page background */
+
+body{
+
+height:100vh;
+
+width:100%;
+
+overflow:hidden;
+
+background:linear-gradient(to bottom, #dff3ff, #ffffff);
+
+font-family:'Quicksand', sans-serif;
+
+position:relative;
+
+}
+
+
+/* Center message */
+
+.message{
+
+position:absolute;
+
+top:50%;
+
+left:50%;
+
+transform:translate(-50%, -50%);
+
+font-size:40px;
+
+color:#2b7fc7;
+
+font-family:'Pacifico', cursive;
+
+text-align:center;
+
+z-index:10;
+
+}
+
+
+/* Butterflies base */
+
+.butterfly{
+
+position:absolute;
+
+font-size:30px;
+
+animation-name:fly;
+
+animation-timing-function:linear;
+
+animation-iteration-count:infinite;
+
+}
+
+
+/* Butterfly positions */
+
+.b1{
+top:10%;
+left:-50px;
+animation-duration:12s;
+}
+
+.b2{
+top:30%;
+left:-60px;
+animation-duration:15s;
+animation-delay:3s;
+}
+
+.b3{
+top:60%;
+left:-40px;
+animation-duration:18s;
+animation-delay:6s;
+}
+
+.b4{
+top:80%;
+left:-70px;
+animation-duration:14s;
+animation-delay:2s;
+}
+
+.b5{
+top:45%;
+left:-80px;
+animation-duration:16s;
+animation-delay:5s;
+}
+
+
+/* Butterfly animation */
+
+@keyframes fly{
+
+0%{
+transform:translateX(0px) translateY(0px);
+}
+
+25%{
+transform:translateX(300px) translateY(-30px);
+}
+
+50%{
+transform:translateX(600px) translateY(20px);
+}
+
+75%{
+transform:translateX(900px) translateY(-20px);
+}
+
+100%{
+transform:translateX(1200px) translateY(0px);
+}
+
+}
+
+
+/* Hearts base */
+
+.heart{
+
+position:absolute;
+
+top:-50px;
+
+font-size:25px;
+
+animation-name:fall;
+
+animation-timing-function:linear;
+
+animation-iteration-count:infinite;
+
+}
+
+
+/* Heart positions */
+
+.h1{
+left:10%;
+animation-duration:8s;
+}
+
+.h2{
+left:25%;
+animation-duration:10s;
+animation-delay:2s;
+}
+
+.h3{
+left:40%;
+animation-duration:7s;
+animation-delay:1s;
+}
+
+.h4{
+left:60%;
+animation-duration:11s;
+animation-delay:3s;
+}
+
+.h5{
+left:75%;
+animation-duration:9s;
+animation-delay:4s;
+}
+
+.h6{
+left:90%;
+animation-duration:12s;
+animation-delay:2s;
+}
+
+
+/* Falling animation */
+
+@keyframes fall{
+
+0%{
+transform:translateY(0px);
+opacity:1;
+}
+
+100%{
+transform:translateY(110vh);
+opacity:0;
+}
+
+}
+/* Cute glass card */
+
+.card{
+
+background:rgba(255,255,255,0.65);
+
+backdrop-filter:blur(15px);
+
+padding:50px;
+
+border-radius:30px;
+
+box-shadow:0 20px 60px rgba(50,150,255,0.2);
+
+text-align:center;
+
+animation:float 4s ease-in-out infinite;
+
+}
+
+
+/* Title */
+
+.title{
+
+font-family:'Pacifico', cursive;
+
+font-size:52px;
+
+color:#2b7fc7;
+
+margin-bottom:10px;
+
+}
+
+
+/* Subtitle */
+
+.subtitle{
+
+color:#6bb6ff;
+
+margin-bottom:40px;
+
+font-size:18px;
+
+}
+
+
+/* Countdown layout */
+
+.countdown{
+
+display:flex;
+
+gap:25px;
+
+justify-content:center;
+
+flex-wrap:wrap;
+
+}
+
+
+/* Cute time boxes */
+
+.time-box{
+
+background:linear-gradient(
+145deg,
+#ffffff,
+#e6f4ff
+);
+
+padding:20px;
+
+border-radius:20px;
+
+box-shadow:
+0 10px 25px rgba(0,150,255,0.15),
+inset 0 0 10px rgba(255,255,255,0.7);
+
+width:100px;
+
+transition:0.3s;
+
+animation:bounce 2s infinite;
+
+}
+
+
+/* Hover effect */
+
+.time-box:hover{
+
+transform:scale(1.1);
+
+}
+
+
+/* Emoji */
+
+.emoji{
+
+font-size:22px;
+
+margin-bottom:5px;
+
+}
+
+
+/* Numbers */
+
+.time-box span{
+
+font-size:36px;
+
+font-weight:600;
+
+color:#1f7fd1;
+
+display:block;
+
+}
+
+
+/* Labels */
+
+.time-box label{
+
+font-size:13px;
+
+color:#6bb6ff;
+
+}
+
+
+/* Floating animation */
+
+@keyframes float{
+
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-10px);}
+
+}
+
+
+/* Bounce animation */
+
+@keyframes bounce{
+
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-5px);}
+
+}
+/* Background containers */
+
+#butterfly-container,
+#heart-container{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+pointer-events:none;
+
+z-index:1;
+
+}
+
+
+/* Make card above background */
+
+.card{
+
+position:relative;
+
+z-index:10;
+
+}
+/* Typing cursor */
+
+.cursor{
+display:inline-block;
+color:#2b7fc7;
+font-weight:bold;
+animation:blink 0.7s infinite;
+}
+
+@keyframes blink{
+0%,50%,100%{opacity:1;}
+25%,75%{opacity:0;}
+}
+.butterfly{
+
+animation:
+float 3s infinite ease-in-out,
+glow 2s infinite alternate,
+wingFlap 0.4s infinite alternate;
+
+}

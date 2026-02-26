@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Happy 19th Birthday 💙</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* Background */
+
+body{
+
+margin:0;
+height:100vh;
+overflow:hidden;
+
+background:linear-gradient(to bottom,#dff3ff,#ffffff);
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+font-family:'Quicksand', sans-serif;
+
+}
+
+
+/* Card */
+
+.card{
+
+position:relative;
+
+background:rgba(255,255,255,0.85);
+
+padding:60px 50px;
+
+border-radius:35px;
+
+box-shadow:
+0 0 20px rgba(120,190,255,0.4),
+0 0 60px rgba(120,190,255,0.2);
+
+text-align:center;
+
+max-width:700px;
+
+animation:fadeIn 2s ease, glowBreath 4s infinite ease-in-out;
+
+}
+
+
+/* Title */
+
+.title{
+
+font-family:'Pacifico';
+
+font-size:56px;
+
+color:#2b7fc7;
+
+margin-bottom:20px;
+
+text-shadow:
+0 0 10px rgba(120,190,255,0.6),
+0 0 30px rgba(120,190,255,0.4);
+
+}
+
+
+/* Message */
+
+.message{
+
+font-size:20px;
+
+color:#355070;
+
+line-height:1.9;
+
+}
+
+
+/* Final glowing line */
+
+.final-line{
+
+margin-top:25px;
+
+font-size:22px;
+
+color:#1f7fd1;
+
+opacity:0;
+
+animation:fadeIn 3s ease forwards;
+animation-delay:4s;
+
+text-shadow:
+0 0 10px rgba(120,190,255,0.8);
+
+}
+
+
+/* Floating butterflies */
+
+.butterfly{
+
+position:absolute;
+
+font-size:26px;
+
+pointer-events:none;
+
+animation:fly linear infinite;
+
+filter:drop-shadow(0 0 10px rgba(120,190,255,0.8));
+
+}
+
+
+/* Floating hearts */
+
+.heart{
+
+position:absolute;
+
+font-size:18px;
+
+pointer-events:none;
+
+animation:floatHeart linear infinite;
+
+}
+
+
+/* Animations */
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(30px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+
+@keyframes glowBreath{
+
+0%,100%{
+box-shadow:
+0 0 20px rgba(120,190,255,0.4),
+0 0 60px rgba(120,190,255,0.2);
+}
+
+50%{
+box-shadow:
+0 0 40px rgba(120,190,255,0.8),
+0 0 100px rgba(120,190,255,0.4);
+}
+
+}
+
+
+@keyframes fly{
+
+0%{
+transform:translateY(100vh) translateX(0);
+opacity:0;
+}
+
+10%{opacity:1;}
+
+100%{
+transform:translateY(-20vh) translateX(100px);
+opacity:0;
+}
+
+}
+
+
+@keyframes floatHeart{
+
+0%{
+transform:translateY(100vh);
+opacity:0;
+}
+
+10%{opacity:1;}
+
+100%{
+transform:translateY(-10vh);
+opacity:0;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<div class="card">
+
+<div class="title">
+Happy Birthday, Kutti 🦋
+</div>
+<script src="countdown-bg.js"></script>
+
+
+<div class="message">
+
+I don’t think you realize how normal you made things feel just by being there. Somewhere between our pointless fights, random teasing, and those moments where we pretend not to care, you became part of my everyday life without asking for permission. We don’t say emotional things. We just fight, laugh, disappear, come back, and repeat. But in all that chaos, you stayed. And I stayed too.
+
+I don’t know what the future looks like. I just know that having you in my life made things lighter in a way I never expected.
+
+Happy Birthday, kutti🦋
+
+<div class="final-line">
+This world is better because you exist. 💙
+</div>
+
+
+</div>
+
+
+<script>
+
+/* Butterflies */
+
+function createButterfly(){
+
+let b=document.createElement("div");
+
+b.className="butterfly";
+
+b.innerHTML="🦋";
+
+b.style.left=Math.random()*window.innerWidth+"px";
+
+b.style.animationDuration=(10+Math.random()*10)+"s";
+
+document.body.appendChild(b);
+
+setTimeout(()=>b.remove(),20000);
+
+}
+
+setInterval(createButterfly,1400);
+
+
+
+/* Floating hearts */
+
+function createHeart(){
+
+let h=document.createElement("div");
+
+h.className="heart";
+
+h.innerHTML="💙";
+
+h.style.left=Math.random()*window.innerWidth+"px";
+
+h.style.animationDuration=(8+Math.random()*8)+"s";
+
+document.body.appendChild(h);
+
+setTimeout(()=>h.remove(),16000);
+
+}
+
+setInterval(createHeart,1800);
+
+
+
+</script>
+<script>
+
+const music = document.getElementById("bgMusic");
+
+// Restore saved time
+let savedTime = localStorage.getItem("musicTime");
+
+if (savedTime !== null) {
+    music.currentTime = parseFloat(savedTime);
+}
+
+// Try to play
+music.play().catch(() => {
+
+    // If autoplay blocked, wait for click once
+    document.addEventListener("click", function startOnce(){
+        music.play();
+        document.removeEventListener("click", startOnce);
+    });
+
+});
+
+// Save progress continuously
+setInterval(() => {
+    localStorage.setItem("musicTime", music.currentTime);
+}, 500);
+
+// When song naturally loops, reset saved time
+music.addEventListener("ended", () => {
+    localStorage.setItem("musicTime", 0);
+});
+
+</script>
+
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+</body>
+</html>

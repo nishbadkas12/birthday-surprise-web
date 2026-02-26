@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Explore the Butterflies 🦋</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+overflow:hidden;
+background:linear-gradient(to bottom,#dff3ff,#ffffff);
+font-family:'Quicksand', sans-serif;
+}
+
+.header{
+position:absolute;
+top:40px;
+width:100%;
+text-align:center;
+}
+
+.title{
+font-family:'Pacifico';
+font-size:42px;
+color:#2b7fc7;
+}
+
+.subtitle{
+color:#5aa9e6;
+margin-top:10px;
+}
+
+.butterfly{
+position:absolute;
+font-size:30px;
+cursor:pointer;
+animation:float 3s infinite ease-in-out, glow 2s infinite alternate;
+transition:0.4s;
+}
+
+.butterfly:hover{
+transform:scale(1.4);
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-14px);}
+}
+
+@keyframes glow{
+from{filter:drop-shadow(0 0 5px #6bb6ff);}
+to{filter:drop-shadow(0 0 18px #aee2ff);}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+<div class="title" id="mainText">🦋</div>
+<div class="subtitle">Touch each one. They are waiting for you.</div>
+</div>
+<div id="progressText" style="
+position:fixed;
+top:20px;
+right:20px;
+color:#6bb6ff;
+font-size:14px;
+font-family:Quicksand;
+z-index:999;">
+Memories found: 0 / 19 💙
+</div>
+<script src="countdown-bg.js"></script>
+
+
+<audio id="bgMusic" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+
+<script>
+
+/* =====================
+MUSIC SYSTEM
+===================== */
+
+let music=document.getElementById("bgMusic");
+
+let savedTime=localStorage.getItem("musicTime");
+
+if(savedTime){
+music.currentTime=savedTime;
+}
+
+music.play();
+
+setInterval(()=>{
+localStorage.setItem("musicTime",music.currentTime);
+},500);
+
+
+
+/* =====================
+BUTTERFLY YEAR SYSTEM
+===================== */
+
+let birthYear=2007;
+let finalYear=2026;
+
+let total=finalYear-birthYear; // 19 butterflies
+let found=0;
+
+let specialIndex=Math.floor(Math.random()*total);
+
+
+
+for(let i=0;i<total;i++){
+
+let year=birthYear+i;
+
+let b=document.createElement("div");
+
+b.className="butterfly";
+
+b.innerHTML="🦋";
+
+
+// special butterfly
+if(i===specialIndex){
+
+b.style.filter=
+"drop-shadow(0 0 15px #4bb6ff) drop-shadow(0 0 30px #8fd3ff)";
+
+b.style.fontSize="42px";
+
+b.dataset.special="true";
+
+}
+
+
+// spawn
+spawnRandom(b);
+
+
+// float motion
+randomFloat(b);
+
+
+// click event
+b.onclick=function(){
+
+if(b.dataset.clicked) return;
+
+b.dataset.clicked=true;
+
+found++;
+document.getElementById("progressText").innerText =
+"Memories found: " + found + " / " + total + " 💙";
+
+// sparkle
+sparkle(b);
+
+
+// show year
+showYear(year);
+
+
+// special explosion
+if(b.dataset.special){
+
+blueHeartExplosion();
+
+}
+
+
+// final butterfly reached
+if(found===total){
+
+setTimeout(()=>{
+
+showYear(finalYear);
+
+finalExplosion();
+
+},500);
+
+
+setTimeout(()=>{
+
+fadeAndRedirect();
+
+},3000);
+
+}
+
+
+// hide butterfly
+b.style.opacity="0";
+
+};
+
+document.body.appendChild(b);
+
+}
+
+
+
+/* =====================
+SPAWN RANDOM
+===================== */
+
+function spawnRandom(el){
+
+el.style.left=Math.random()*window.innerWidth+"px";
+
+el.style.top=Math.random()*window.innerHeight+"px";
+
+}
+
+
+
+/* =====================
+FLOAT MOTION
+===================== */
+
+function randomFloat(el){
+
+setInterval(()=>{
+
+let x=Math.random()*window.innerWidth;
+
+let y=Math.random()*window.innerHeight;
+
+el.animate(
+[
+{transform:"translate(0,0)"},
+{transform:`translate(${x-el.offsetLeft}px,${y-el.offsetTop}px)`}
+],
+{
+duration:4000+Math.random()*4000,
+fill:"forwards"
+}
+);
+
+},4000);
+
+}
+
+
+
+/* =====================
+YEAR POPUP
+===================== */
+
+function showYear(year){
+
+let popup=document.createElement("div");
+
+popup.innerText=year;
+
+popup.style.position="fixed";
+
+popup.style.left="50%";
+
+popup.style.top="50%";
+
+popup.style.transform="translate(-50%,-50%)";
+
+popup.style.fontSize="60px";
+
+popup.style.fontFamily="Pacifico";
+
+popup.style.color="#1f7fd1";
+
+popup.style.textShadow=
+"0 0 20px rgba(120,190,255,0.8), 0 0 40px rgba(120,190,255,0.5)";
+
+popup.style.zIndex="999";
+
+document.body.appendChild(popup);
+
+
+popup.animate(
+[
+{transform:"translate(-50%,-50%) scale(0.5)",opacity:0},
+{transform:"translate(-50%,-50%) scale(1.2)",opacity:1},
+{transform:"translate(-50%,-50%) scale(1)",opacity:0}
+],
+{duration:2000}
+);
+
+setTimeout(()=>popup.remove(),2000);
+
+}
+
+
+
+/* =====================
+SPARKLE EFFECT
+===================== */
+
+function sparkle(parent){
+
+let rect=parent.getBoundingClientRect();
+
+for(let i=0;i<6;i++){
+
+let h=document.createElement("div");
+
+h.innerHTML="💙";
+
+h.style.position="fixed";
+
+h.style.left=rect.left+"px";
+
+h.style.top=rect.top+"px";
+
+document.body.appendChild(h);
+
+let x=(Math.random()*100)-50;
+
+let y=(Math.random()*100)-50;
+
+h.animate(
+[
+{transform:"translate(0,0)",opacity:1},
+{transform:`translate(${x}px,${y}px)`,opacity:0}
+],
+{duration:1000}
+);
+
+setTimeout(()=>h.remove(),1000);
+
+}
+
+}
+
+
+
+/* =====================
+SPECIAL EXPLOSION
+===================== */
+
+function blueHeartExplosion(){
+
+let rect=document.getElementById("mainText").getBoundingClientRect();
+
+for(let i=0;i<30;i++){
+
+let h=document.createElement("div");
+
+h.innerHTML="💙";
+
+h.style.position="fixed";
+
+h.style.left=rect.left+rect.width/2+"px";
+
+h.style.top=rect.top+rect.height/2+"px";
+
+document.body.appendChild(h);
+
+let angle=Math.random()*360;
+
+let distance=100+Math.random()*200;
+
+let x=Math.cos(angle)*distance;
+
+let y=Math.sin(angle)*distance;
+
+h.animate(
+[
+{transform:"translate(0,0)",opacity:1},
+{transform:`translate(${x}px,${y}px)`,opacity:0}
+],
+{duration:1500}
+);
+
+setTimeout(()=>h.remove(),1500);
+
+}
+
+}
+
+
+
+/* =====================
+FINAL EXPLOSION
+===================== */
+
+function finalExplosion(){
+
+for(let i=0;i<50;i++){
+
+let h=document.createElement("div");
+
+h.innerHTML="💙";
+
+h.style.position="fixed";
+
+h.style.left="50%";
+
+h.style.top="50%";
+
+document.body.appendChild(h);
+
+let angle=Math.random()*360;
+
+let distance=200+Math.random()*300;
+
+let x=Math.cos(angle)*distance;
+
+let y=Math.sin(angle)*distance;
+
+h.animate(
+[
+{transform:"translate(0,0)",opacity:1},
+{transform:`translate(${x}px,${y}px)`,opacity:0}
+],
+{duration:2000}
+);
+
+setTimeout(()=>h.remove(),2000);
+
+}
+
+}
+
+
+
+/* =====================
+FADE REDIRECT
+===================== */
+
+function fadeAndRedirect(){
+
+let fade=document.createElement("div");
+
+fade.style.position="fixed";
+
+fade.style.inset="0";
+
+fade.style.background="white";
+
+fade.style.opacity="0";
+
+fade.style.transition="1.5s";
+
+document.body.appendChild(fade);
+
+setTimeout(()=>fade.style.opacity="1",50);
+
+setTimeout(()=>window.location.href="final.html",1500);
+
+}
+
+</script>
+
+</body>
+</html>

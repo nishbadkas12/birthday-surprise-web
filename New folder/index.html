@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For Kashish 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* BODY */
+body{
+margin:0;
+padding:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(to bottom,#dff3ff,#ffffff);
+overflow:hidden;
+font-family:'Quicksand',sans-serif;
+}
+
+
+/* BACKGROUND CONTAINER */
+#countdown-background{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:0;
+overflow:hidden;
+}
+
+
+/* CENTER MESSAGE CARD */
+.portal-card{
+
+position:relative;
+z-index:10;
+
+background:rgba(255,255,255,0.75);
+
+padding:40px 50px;
+
+border-radius:25px;
+
+backdrop-filter:blur(10px);
+
+box-shadow:
+0 0 20px rgba(120,190,255,0.5),
+0 0 50px rgba(120,190,255,0.3);
+
+text-align:center;
+
+cursor:pointer;
+
+transition:0.4s;
+
+}
+
+.portal-card:hover{
+
+transform:scale(1.05);
+
+box-shadow:
+0 0 40px rgba(120,190,255,0.8),
+0 0 80px rgba(120,190,255,0.5);
+
+}
+
+
+/* NAME */
+.name{
+
+font-family:'Pacifico',cursive;
+
+font-size:42px;
+
+color:#1f7fd1;
+
+text-shadow:
+0 0 10px rgba(120,190,255,0.7),
+0 0 30px rgba(120,190,255,0.4);
+
+margin-bottom:15px;
+
+}
+
+
+/* MESSAGE TEXT */
+.message{
+
+font-size:20px;
+
+color:#4a6fa5;
+
+min-height:28px;
+
+}
+
+
+/* CURSOR */
+.cursor{
+animation:blink 1s infinite;
+}
+
+@keyframes blink{
+0%,50%,100%{opacity:1;}
+25%,75%{opacity:0;}
+}
+
+
+/* HEARTBEAT DOT */
+.heartbeat-dot{
+
+width:12px;
+height:12px;
+
+background:#6bb6ff;
+
+border-radius:50%;
+
+margin:20px auto 0;
+
+animation:heartbeatDot 1.2s infinite;
+
+}
+
+@keyframes heartbeatDot{
+
+0%,100%{
+transform:scale(1);
+opacity:0.5;
+}
+
+50%{
+transform:scale(1.6);
+opacity:1;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- PORTAL CARD -->
+<div class="portal" id="enterPortal">
+
+<div class="name">Kishu 💖</div>
+
+<div class="message">
+<span id="typingText"></span>
+<span class="cursor">|</span>
+</div>
+
+<div class="heartbeat-dot"></div>
+
+</div>
+
+
+<!-- MUSIC -->
+<audio id="bgMusic" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+
+<!-- SAME CINEMATIC BACKGROUND -->
+<script src="countdown-bg.js"></script>
+
+
+<script>
+
+// ===============================
+// TYPING TEXT
+// ===============================
+
+let text = "Kutti… I think the reason I fight with you over the smallest, most meaningless things is because those moments are secretly mine. I annoy you on purpose, hoping you’ll annoy me back, just so we can stay in that little world where it’s only us being stupid together. I don’t fight because I’m mad. I fight because I like the way you react, the way you stay, the way you’re there with me in those pointless moments. Sometimes you don’t, and I miss it more than I ever admit.It’s strange how our nonsense fights became my favorite conversations. Somewhere between teasing you, waiting for your reactions, and pretending to be angry, you quietly became someone I never want to lose. Maybe it’s my silly and quiet way of asking you to stay close to me a little longer… because truthfully, I just like having you in my world. 🩷"
+
+let i = 0;
+
+function typeWriter(){
+
+if(i < text.length){
+
+document.getElementById("typingText").innerHTML += text.charAt(i);
+
+i++;
+
+setTimeout(typeWriter, 50);
+
+}
+
+}
+
+typeWriter();
+
+
+// ===============================
+// PORTAL CLICK EVENT
+// ===============================
+
+let portal = document.getElementById("enterPortal");
+
+let music = document.getElementById("bgMusic");
+
+portal.addEventListener("click", function(){
+
+music.currentTime = 0;
+
+music.play();
+
+
+// save music time
+setInterval(()=>{
+localStorage.setItem("musicTime", music.currentTime);
+},500);
+
+
+// glow press effect
+portal.style.transform="scale(1.1)";
+
+
+// fade transition
+let fade = document.createElement("div");
+
+fade.style.position="fixed";
+fade.style.top="0";
+fade.style.left="0";
+fade.style.width="100%";
+fade.style.height="100%";
+fade.style.background="white";
+fade.style.opacity="0";
+fade.style.transition="1.5s";
+fade.style.zIndex="999";
+
+document.body.appendChild(fade);
+
+setTimeout(()=>{
+fade.style.opacity="1";
+},200);
+
+
+// redirect
+setTimeout(()=>{
+window.location.href="explore.html";
+},1600);
+
+});
+
+
+</script>
+<script>
+
+let btn = document.getElementById("kishuBtn");
+
+btn.addEventListener("click", function(){
+
+    // optional fade effect
+    let fade = document.createElement("div");
+
+    fade.style.position="fixed";
+    fade.style.top="0";
+    fade.style.left="0";
+    fade.style.width="100%";
+    fade.style.height="100%";
+    fade.style.background="white";
+    fade.style.opacity="0";
+    fade.style.transition="1s";
+    fade.style.zIndex="999";
+
+    document.body.appendChild(fade);
+
+    setTimeout(()=>{
+        fade.style.opacity="1";
+    },100);
+
+    setTimeout(()=>{
+        window.location.href="explore.html";
+    },1000);
+
+});
+
+</script>
+</body>
+</html>
